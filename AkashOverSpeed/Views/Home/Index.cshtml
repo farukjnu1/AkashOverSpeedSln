@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+<form action="/Home/Login" method="post">
+    <table>
+        <tr>
+            <td>Username:</td>
+            <td>
+                <input type="text" name="strUser" />
+            </td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td>
+                <input type="password" name="strPassword" />
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <button type="submit">Login</button>
+            </td>
+        </tr>
+    </table>
+</form>

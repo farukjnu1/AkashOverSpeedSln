@@ -1,0 +1,73 @@
+﻿@model IEnumerable<AkashOverSpeed.ViewModels.VmTrackLast>
+@{
+    ViewBag.Title = "OverSpeed";
+    var oUser = (AkashOverSpeed.ViewModels.VmUser)Session["VmUser"];
+    int i = 0;
+    int? speedLimit = Model.Count() == 0 ? 70 : Model.First().nOverSpeed;
+}
+<div class="row">
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4" style="text-align:center">
+        <h1>Over Speed Meter</h1>
+    </div>
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-1">
+        <a href="~/Home/Logout">Logout</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <h3>Company: @oUser.strCompany (@oUser.strName)</h3>
+    </div>
+    <div class="col-md-2">
+        <label>Speed Limit:</label> <input id="speedLimit" type="number" min="0" max="160" value="@speedLimit" style="text-align:right" />
+    </div>
+    <div class="col-md-4">
+        <h4><span id="time"></span></h4>
+    </div>
+</div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>SL</th>
+            <th>Car Number</th>
+            <th>Latitude</th>
+            <th>Longidute</th>
+            <th>Time</th>
+            <th>Speed</th>
+            <th>Speed Limit</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            i++;
+            <tr class="@item.StatusSpeed">
+                <td>@i</td>
+                <td>@item.strCarNum</td>
+                <td>@item.dbLat</td>
+                <td>@item.dbLon</td>
+                <td>@item.strTime</td>
+                <td>@item.nSpeed</td>
+                <td>@item.nOverSpeed</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script>
+    setTimeout(function () {
+        var speedLimit = document.getElementById('speedLimit').value;
+        //location.href = 'Track/Index?speedLimit=' + speedLimit;
+        var path = '/Track/Index?speedLimit=' + speedLimit;
+        var returnUrl = window.location.protocol + "//" + window.location.host + path
+        location.href = returnUrl;
+    }, 20000);
+
+    function setTime() {
+        const d = new Date();
+        document.getElementById('time').innerText = d;
+    }
+    setTime();
+</script>
